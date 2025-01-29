@@ -3,7 +3,7 @@ from api.routes import api_bp
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.register_blueprint(api_bp, prefix="/api")
+    app.register_blueprint(api_bp, url_prefix="/api")
     return app
 
 if __name__ == "__main__":
