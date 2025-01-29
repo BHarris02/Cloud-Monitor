@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  cloud-monitor-backend:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URI=${DATABASE_URI}
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+  
+  cloud-monitor-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    env_file:
+      - ./.env
+    ports:
+      - "3307:3307"
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data
