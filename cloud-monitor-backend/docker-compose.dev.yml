@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   cloud-monitor-backend:
-    build: .
+    build:
+      context: ../cloud-monitor-backend
+      dockerfile: Dockerfile.dev
     ports:
       - "5000:5000"
     environment:
@@ -11,7 +13,7 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - db
+      - cloud-monitor-db
   
   cloud-monitor-db:
     image: mysql:latest
@@ -27,5 +29,6 @@ services:
       - "3307:3307"
     volumes:
       - db_data:/var/lib/mysql
+
 volumes:
-  db_data
+  db_data: {}
