@@ -1,0 +1,20 @@
+- name: Install and Configure Monitoring Server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install Python Dependencies
+      apt:
+        name: ["python3", "python3-pip"]
+        state: present
+    
+    - name: Install Flask and psutil
+      apt: 
+        name: ["flask", "psutil"]
+    
+    - name: Copy application files
+      copy:
+        src: ../cloud-monitor-backend
+        dest: /opt/cloud-monitor
+    
+    - name: Start Flask Application
+      shell: nohup python3 /opt/cloud-monitor/app.py &

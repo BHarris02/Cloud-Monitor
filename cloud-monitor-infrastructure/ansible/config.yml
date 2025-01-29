@@ -1,0 +1,16 @@
+- name: Configure system logging
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure logging is enabled
+      lineinfile:
+        path: /etc/rsyslog.conf
+        line: "*.* @logserver.example.com"
+        state: present
+      notify: Restart rsyslog
+  
+  handlers:
+    - name: Restart rsyslog
+      service:
+        name: rsyslog
+        state: restarted
