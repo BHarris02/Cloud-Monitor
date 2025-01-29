@@ -1,5 +1,5 @@
 import mysql.connector # type: ignore
-from config import DATABASE_URI
+from config import DB_CONFIG
 
 def get_db_connection() -> None:
-    return mysql.connector.connect(DATABASE_URI)
+    return mysql.connector.connect(**DB_CONFIG)

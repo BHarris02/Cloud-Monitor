@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, Float, create_engine, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import datetime
+from config import DATABASE_URI
 
 Base = declarative_base()
 
@@ -14,7 +15,6 @@ class Metrics(Base):
     mem_usage = Column(Float)
     disk_usage = Column(Float)
 
-db_url = "mysql+mysqlconnector://admin:password@localhost/cloudmonitor"
-engine = create_engine(db_url)
+engine = create_engine(DATABASE_URI)
 Session = sessionmaker(bind=engine)
 Base.metadata.create_all(engine)
